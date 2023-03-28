@@ -1,0 +1,65 @@
+esphome:
+  name: esp8266-sml
+
+esp8266:
+  board: nodemcuv2
+
+# Enable logging
+logger:
+  level: DEBUG
+  logs:
+    sml: INFO
+    sml_sensor: INFO
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: YOUR_WIFI_PASSWORD
+  password: YOUR_WIFI_PASSWORD
+
+uart:
+  id: uart_bus
+  rx_pin: GPIO3
+  baud_rate: 9600
+  data_bits: 8
+  parity: NONE
+  stop_bits: 1
+
+sml:
+  id: mysml
+  uart_id: uart_bus
+  
+sensor:
+  - platform: sml
+    name: "Total energy bought"
+    sml_id: mysml
+    obis_code: "1-0:1.8.0"
+    unit_of_measurement: kWh
+    accuracy_decimals: 4
+    device_class: energy
+    state_class: total_increasing
+    filters:
+      - multiply: 0.0001
+  - platform: sml
+    name: "Total energy sold"
+    sml_id: mysml
+    obis_code: "1-0:2.8.0"
+    unit_of_measurement: kWh
+    accuracy_decimals: 4
+    device_class: energy
+    state_class: total_increasing
+    filters:
+      - multiply: 0.0001
+  - platform: sml
+    name: "Current load"
+    sml_id: mysml
+    obis_code: "1-0:16.7.0"
+    unit_of_measurement: W
+    accuracy_decimals: 0
+    device_class: energy
