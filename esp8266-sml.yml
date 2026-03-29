@@ -62,4 +62,5 @@ sensor:
     obis_code: "1-0:16.7.0"
     unit_of_measurement: W
     accuracy_decimals: 0
-    device_class: energy
+    device_class: power
+    state_class: measurement
