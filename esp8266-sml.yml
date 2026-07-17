@@ -10,6 +10,7 @@ logger:
   logs:
     sml: INFO
     sml_sensor: INFO
+  baud_rate: 0
 
 # Enable Home Assistant API
 api:
@@ -17,15 +18,18 @@ api:
     key: ""
 
 ota:
+  platform: esphome
   password: ""
 
 wifi:
-  ssid: YOUR_WIFI_PASSWORD
-  password: YOUR_WIFI_PASSWORD
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 
 uart:
   id: uart_bus
-  rx_pin: GPIO3
+  rx_pin:
+    number: GPIO3
+    # mode: INPUT_PULLUP # Uncomment this line if your board lacks hardware pull-ups and you get no data
   baud_rate: 9600
   data_bits: 8
   parity: NONE
